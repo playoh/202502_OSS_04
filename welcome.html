@@ -17,6 +17,7 @@
     const hasVisited = localStorage.getItem('hasVisited');
     if (hasVisited === null) {
       alert("첫번째 방문을 환영합니다.");
+      console.log(location.pathname);
     }
     localStorage.setItem("hasVisited","true");
   }

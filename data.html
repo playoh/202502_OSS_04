@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Page Title</title>
+</head>
+
+<body>
+  <button id="loadBtn">Get Data</button>
+  <ul id="list"></ul>
+</body>
+<script>
+  const loadBtn = document.getElementById("loadBtn");
+  const list = document.getElementById("list");
+
+  function getData() {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then(response => response.json())
+      .then(data => {
+        list.innerHTML = "";
+        data.forEach(user => {
+          const li = document.createElement("li");
+          li.textContent = `${user.name} 
+                        - ${user.email}`;
+          list.appendChild(li);
+        });
+      })
+      .catch(error => console.error("에러 발생", error));
+  };
+
+  loadBtn.addEventListener("click", getData);
+
+</script>
+
+</html>
