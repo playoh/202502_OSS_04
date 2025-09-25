@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="btns">
+    <button id="read">조회</button>
+    <button id="create">추가</button>
+    <button id="update">수정</button>
+    <button id="delete">삭제</button>
+  </div>
+
+  <ul id="list"></ul>
+</body>
+<script>
+  const list = document.getElementById("list");
+  const rBtn = document.getElementById("read");
+  const cBtn = document.getElementById("create");
+  const uBtn = document.getElementById("update");
+  const dBtn = document.getElementById("delete");
+
+  function getData(){
+    fetch("data.json")
+      .then(response => response.json())
+      .then(data => {
+        list.innerHTML = "";
+        data.forEach(e => {
+          const li = document.createElement("li");
+          li.textContent = `
+            ${e.id}
+            ${e.name}
+            ${e.age}
+            ${e.major}
+          `;
+          list.appendChild(li);
+        });
+      })
+      .catch(err => console.log("Error:",err));
+  };
+  function postData(){
+
+  };
+  function updateData(){
+
+  };
+  function deletData(){
+
+  };
+
+  rBtn.addEventListener("click", getData);
+  cBtn.addEventListener("click", postData);
+  uBtn.addEventListener("click", updateData);
+  dBtn.addEventListener("click", deletData);
+
+</script>
+</html>
