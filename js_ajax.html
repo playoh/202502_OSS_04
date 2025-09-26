@@ -14,8 +14,23 @@
     <button id="update">수정</button>
     <button id="delete">삭제</button>
   </div>
-
-  <ul id="list"></ul>
+  <div>
+    <ul id="list"></ul>
+  </div>
+  <div>
+    <form>
+      <label>이름</label>
+      <input id="name" type="text" placeholder="이름을 입력해 주세요" required />
+      <label>학번</label>
+      <input id="stuNum" type="number" placeholder="학번을 입력해 주세요" required />
+      <label>이메일</label>
+      <input id="email" type="email" placeholder="이메일을 입력해 주세요" required />
+      <label>나이</label>
+      <input id="age" type="number" placeholder="나이를 입력해 주세요" required />
+      <label>전공</label>
+      <input id="major" type="text" placeholder="전공을 입력해 주세요" required />
+    </form>
+  </div>
 </body>
 <script>
   const list = document.getElementById("list");
@@ -24,7 +39,7 @@
   const uBtn = document.getElementById("update");
   const dBtn = document.getElementById("delete");
 
-  function getData(){
+  function getData() {
     fetch("./data.json")
       .then(response => response.json())
       .then(data => {
@@ -40,15 +55,32 @@
           list.appendChild(li);
         });
       })
-      .catch(err => console.log("Error:",err));
+      .catch(err => console.log("Error:", err));
   };
-  function postData(){
+  function postData() {
+    const name = document.getElementById("name");
+    const age = document.getElementById("age");
+    const major = document.getElementById("major");
+    const stuNum = document.getElementById("stuNum");
+
+    if (!name || !major || (!age)) return alert("입력값을 확인하세요.");
+
+    fetch("./data.json",
+      {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, age, major, stuNum })
+      }
+    )
+      .then(response => response.json())
+      .then(data => {
+        alert(data["msg"]);
+      });
+  };
+  function updateData() {
 
   };
-  function updateData(){
-
-  };
-  function deletData(){
+  function deletData() {
 
   };
 
@@ -58,4 +90,5 @@
   dBtn.addEventListener("click", deletData);
 
 </script>
+
 </html>
