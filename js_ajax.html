@@ -29,7 +29,7 @@
       .then(response => response.json())
       .then(data => {
         list.innerHTML = "";
-        data.forEach(e => {
+        data.students.forEach(e => {
           const li = document.createElement("li");
           li.textContent = `
             ${e.id}
