@@ -5,14 +5,222 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --text: #111827;
+      --muted: #6b7280;
+      --primary: #2563eb;
+      --primary-600: #1d4ed8;
+      --success: #16a34a;
+      --warning: #f59e0b;
+      --danger: #dc2626;
+      --ring: rgba(37, 99, 235, .35);
+      --border: #e5e7eb;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.5;
+    }
+
+    /* 공통 레이아웃 컨테이너 간격 */
+    body>.btns,
+    body>div {
+      max-width: 960px;
+      margin: 24px auto;
+      padding: 0 16px;
+    }
+
+    /* 상단 버튼 바 */
+    .btns {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      gap: 10px;
+      padding: 12px 16px;
+      background: linear-gradient(to bottom, rgba(246, 248, 251, .95), rgba(246, 248, 251, .6));
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .btns button {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: #fff;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform .06s ease, box-shadow .2s ease, background .2s, border-color .2s;
+      box-shadow: 0 1px 1px rgba(0, 0, 0, .03);
+    }
+
+    .btns button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, .08);
+    }
+
+    .btns button:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, .10);
+    }
+
+    .btns button:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 4px var(--ring);
+    }
+
+    /* 버튼별 컬러 */
+    #read {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+
+    #read:hover {
+      background: var(--primary-600);
+      border-color: var(--primary-600);
+    }
+
+    #create {
+      background: var(--success);
+      border-color: var(--success);
+      color: #fff;
+    }
+
+    #update {
+      background: var(--warning);
+      border-color: var(--warning);
+      color: #fff;
+    }
+
+    #delete {
+      background: var(--danger);
+      border-color: var(--danger);
+      color: #fff;
+    }
+
+    /* 리스트 카드 */
+    #list {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    #list li {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .04);
+      white-space: nowrap;
+      /* 텍스트 줄바꿈 방지 */
+      overflow-x: auto;
+      /* 길면 가로 스크롤 */
+      scrollbar-width: thin;
+    }
+
+    #list li::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    #list li::-webkit-scrollbar-thumb {
+      background: #d1d5db;
+      border-radius: 8px;
+    }
+
+    /* 폼 카드 */
+    form {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, .05);
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      /* 라벨 - 인풋 */
+      gap: 14px 16px;
+      align-items: center;
+    }
+
+    form label {
+      font-weight: 700;
+      color: #374151;
+    }
+
+    form input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 14px;
+      background: #f9fafb;
+      transition: border-color .2s, box-shadow .2s, background .2s;
+    }
+
+    form input:hover {
+      background: #fff;
+    }
+
+    form input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px var(--ring);
+      background: #fff;
+    }
+
+    form input:invalid:focus {
+      border-color: var(--danger);
+      box-shadow: 0 0 0 4px rgba(220, 38, 38, .2);
+    }
+
+    form input::placeholder {
+      color: #9ca3af;
+    }
+
+    @media (max-width: 640px) {
+      form {
+        grid-template-columns: 1fr;
+      }
+
+      form label {
+        margin-top: 6px;
+      }
+
+      .btns {
+        position: static;
+      }
+
+    }
+  </style>
 </head>
 
 <body>
   <div class="btns">
     <button id="read">조회</button>
     <button id="create">추가</button>
-    <button id="update">수정</button>
-    <button id="delete">삭제</button>
   </div>
   <div>
     <ul id="list"></ul>
@@ -33,62 +241,143 @@
   </div>
 </body>
 <script>
+  //api는 간편하게 한번 정의해 놓자
+  const API = "http://localhost:3001/students";
+
   const list = document.getElementById("list");
   const rBtn = document.getElementById("read");
   const cBtn = document.getElementById("create");
-  const uBtn = document.getElementById("update");
-  const dBtn = document.getElementById("delete");
 
-  function getData() {
-    fetch("./data.json")
-      .then(response => response.json())
-      .then(data => {
-        list.innerHTML = "";
-        data.students.forEach(e => {
-          const li = document.createElement("li");
-          li.textContent = `
-            ${e.id}
-            ${e.name}
-            ${e.age}
-            ${e.major}
-          `;
-          list.appendChild(li);
-        });
-      })
-      .catch(err => console.log("Error:", err));
-  };
-  function postData() {
-    const name = document.getElementById("name");
-    const age = document.getElementById("age");
-    const major = document.getElementById("major");
-    const stuNum = document.getElementById("stuNum");
+  const nameInput = document.getElementById("name");
+  const ageInput = document.getElementById("age");
+  const majorInput = document.getElementById("major");
+  const stuNumInput = document.getElementById("stuNum");
+  const emailInput = document.getElementById("email");
 
-    if (!name || !major || (!age)) return alert("입력값을 확인하세요.");
+  //데이터를 가져오는 코드
+  async function getData() {
+    const res = await fetch(API, { cache: "no-store" });
+    const students = await res.json();
+    list.innerHTML = "";
+    students.forEach(renderItem);
+  }
 
-    fetch("./data.json",
-      {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, age, major, stuNum })
-      }
-    )
-      .then(response => response.json())
-      .then(data => {
-        alert(data["msg"]);
-      });
-  };
-  function updateData() {
+  //아이템을 렌더링 하는 방식
+  function renderItem(s) {
+    const li = document.createElement("li");
+    li.dataset.id = s.id;
 
-  };
-  function deletData() {
+    li.innerHTML = `
+      <div class="view">
+        이름: ${s.name} / 이메일: ${s.email} / 학번: ${s.stuNum} / 나이: ${s.age} / 전공: ${s.major}
+      </div>
 
-  };
+      <form class="edit" style="display:none; grid-template-columns: repeat(6, minmax(0,1fr)); gap:8px; width:100%;">
+        <input name="name"  type="text"   placeholder="이름"  value="${s.name ?? ""}" />
+        <input name="email" type="email"  placeholder="이메일" value="${s.email ?? ""}" />
+        <input name="stuNum" type="text"  placeholder="학번"  value="${s.stuNum ?? ""}" />
+        <input name="age"   type="number" placeholder="나이"   value="${s.age ?? ""}" />
+        <input name="major" type="text"   placeholder="전공"  value="${s.major ?? ""}" />
+        <div style="display:flex;gap:8px;align-items:center;">
+          <button type="button" data-role="save">저장</button>
+          <button type="button" data-role="cancel">취소</button>
+        </div>
+      </form>
 
+      <div class="actions" style="margin-left:auto; display:flex; gap:8px;">
+        <button type="button" data-role="update">수정</button>
+        <button type="button" data-role="delete">삭제</button>
+      </div>
+    `;
+    list.appendChild(li);
+  }
+
+  //데이터 추가 코드
+  async function postData() {
+    const body = {
+      name: nameInput.value.trim(),
+      age: Number(ageInput.value),
+      major: majorInput.value.trim(),
+      stuNum: String(stuNumInput.value).trim(),
+      email: emailInput.value.trim()
+    };
+    if (!body.name || !body.major || !body.stuNum || !body.email || Number.isNaN(body.age)) {
+      alert("입력값을 확인하세요."); //입력값이 없을경우를 위해 알림 보냄
+      return;
+    }
+    await fetch(API, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    });
+    document.querySelector("form").reset?.(); //상단의 폼을 리셋
+    getData();
+  }
+
+  //아이템 삭제
+  async function deleteItem(id, li) {
+    if (!id) return alert("서버 id가 없습니다. 먼저 '조회'를 눌러주세요.");
+    if (!confirm("정말 삭제할까요?")) return;
+    await fetch(`${API}/${id}`, { method: "DELETE" }); //선택한 id값의 정보를 지움!
+    li.remove();
+  }
+
+
+  function enterEdit(li) { //수정버튼을 처음 누르면, edit 모드로 접근하면서 view 모드가 꺼짐
+    li.querySelector(".view").style.display = "none";
+    li.querySelector(".edit").style.display = "grid";
+    li.querySelector('[name="name"]').focus();
+
+    li.querySelector('[data-role="update"]').style.display = "none"; //수정중에는 수정 버튼이 사라져야함!
+  }
+  function exitEdit(li) { //edit을 완료하면 edit때 창을 없앰
+    li.querySelector(".view").style.display = "";
+    li.querySelector(".edit").style.display = "none";
+    li.querySelector('[data-role="update"]').style.display = "";
+  }
+
+  async function saveEdit(li) {
+    const id = li.dataset.id;
+    const form = li.querySelector(".edit");
+    const body = {
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      stuNum: String(form.stuNum.value).trim(),
+      age: Number(form.age.value),
+      major: form.major.value.trim()
+    };
+    if (!body.name || !body.email || !body.stuNum || !body.major || Number.isNaN(body.age)) {
+      alert("입력값을 확인하세요.");
+      return;
+    }
+    await fetch(`${API}/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    });
+
+    li.querySelector(".view").textContent =
+      `이름: ${body.name} / 이메일: ${body.email} / 학번: ${body.stuNum} / 나이: ${body.age} / 전공: ${body.major}`;
+    exitEdit(li);
+  }
+
+  //list에서 바로 추가함 이때에 클릭받은 이벤트 값에 바로 함수를 적용하여 실행되도록 함
+  list.addEventListener("click", async (e) => {
+    const btn = e.target.closest("button");
+    if (!btn) return;
+    const li = btn.closest("li");
+    const id = li?.dataset.id;
+    const role = btn.dataset.role;
+
+    if (role === "update") enterEdit(li);
+    if (role === "cancel") exitEdit(li);
+    if (role === "save") await saveEdit(li);
+    if (role === "delete") await deleteItem(id, li);
+  });
+
+  // 상단 버튼
   rBtn.addEventListener("click", getData);
   cBtn.addEventListener("click", postData);
-  uBtn.addEventListener("click", updateData);
-  dBtn.addEventListener("click", deletData);
-
 </script>
 
 </html>

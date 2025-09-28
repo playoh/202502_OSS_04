@@ -1,7 +1,36 @@
 {
-  "students":[
-    { "id": 1, "name": "홍길동", "age": 20, "major": "컴퓨터공학" },
-    { "id": 2, "name": "김철수", "age": 22, "major": "전자공학" },
-    { "id": 3, "name": "이영희", "age": 21, "major": "수학" }
+  "students": [
+    {
+      "id": "1935",
+      "name": "홍",
+      "age": 24,
+      "major": "컴퓨터",
+      "stuNum": "240000",
+      "email": "hong@email.com"
+    },
+    {
+      "id": "42be",
+      "name": "응애",
+      "age": 40,
+      "major": "심리학",
+      "stuNum": "230000",
+      "email": "dmdee@email.com"
+    },
+    {
+      "id": "b9fd",
+      "name": "과제",
+      "age": 35,
+      "major": "경영경제",
+      "stuNum": "2250000",
+      "email": "assignment@email.com"
+    },
+    {
+      "name": "홍참길",
+      "email": "chamgil@email.com",
+      "stuNum": "0030000",
+      "age": 53,
+      "major": "컴퓨터공학",
+      "id": "6ffd"
+    }
   ]
 }
